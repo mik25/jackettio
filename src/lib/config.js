@@ -12,7 +12,7 @@ export default {
   // Enable localtunnel feature
   localtunnel: (process.env.LOCALTUNNEL || 'false') === 'true',
   // Addon ID
-  addonId: process.env.ADDON_ID || 'community.stremio.jackettio',
+  addonId: process.env.ADDON_ID || 'hy.stremio.jackeddio',
   // When hosting an instance with a private tracker, you can configure this setting to:
   // - Request the user's passkey on the /configure page.
   // - Replace your passkey with theirs when sending uncached torrents to the debrid.
@@ -24,12 +24,12 @@ export default {
   // List of config keys that user can't configure
   immulatableUserConfigKeys: commaListToArray(process.env.IMMULATABLE_USER_CONFIG_KEYS || ''),
   // Welcome message in /configure page. Markdown format
-  welcomeMessage: process.env.WELCOME_MESSAGE || '',
+  welcomeMessage: process.env.WELCOME_MESSAGE || 'h_y style',
   // Trust the cf-connecting-ip header
   trustCfIpHeader: (process.env.TRUST_CF_IP_HEADER || 'false') === 'true',
 
   defaultUserConfig: {
-    qualities: commaListToArray(process.env.DEFAULT_QUALITIES || '0, 720, 1080').map(v => parseInt(v)),
+    qualities: commaListToArray(process.env.DEFAULT_QUALITIES || '1080,4k').map(v => parseInt(v)),
     excludeKeywords: commaListToArray(process.env.DEFAULT_EXCLUDE_KEYWORDS || ''),
     maxTorrents: parseInt(process.env.DEFAULT_MAX_TORRENTS || 8),
     priotizeLanguages: commaListToArray(process.env.DEFAULT_PRIOTIZE_LANGUAGES || ''),
