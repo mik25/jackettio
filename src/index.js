@@ -1,3 +1,6 @@
+import path from 'path';
+const configurePath = path.join(__dirname, 'src', 'template.configure.html');
+const configure = JSON.parse(readFileSync(configurePath));
 
 
 import fs from 'fs';
@@ -7,7 +10,6 @@ import localtunnel from 'localtunnel';
 import {readFileSync} from "fs";
 import config from './lib/config.js';
 import cache from './lib/cache.js';
-import path from 'path';
 import * as debrid from './lib/debrid.js';
 import {getIndexers} from './lib/jackett.js';
 import * as jackettio from "./lib/jackettio.js";
