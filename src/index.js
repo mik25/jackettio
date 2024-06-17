@@ -1,4 +1,4 @@
-const path = require("path");
+
 const templateFilePath = path.resolve(__dirname, "./src/template/configure.html");
 
 const fs = require("fs");
