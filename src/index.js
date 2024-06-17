@@ -1,5 +1,4 @@
 
-import templateFilePath from './src/template/configure.html';
 
 import fs from 'fs';
 import showdown from 'showdown';
