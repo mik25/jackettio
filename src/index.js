@@ -1,5 +1,5 @@
 
-import templateFilePath = path.resolve(__dirname, "./src/template/configure.html");
+import templateFilePath = path.resolve("./src/template/configure.html");
 
 import fs = require("fs");
 import showdown from 'showdown';
