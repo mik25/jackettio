@@ -21,16 +21,16 @@ const welcomeMessageHtml = config.welcomeMessage ? `${converter.makeHtml(config.
 // Corrected the path to the package.json file
 const addon = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf-8'));
 
-// Corrected the path to the template.configure.html file
-const configure = fs.readFileSync(path.join(__dirname, 'src', 'template.configure.html'), 'utf-8');
+// Corrected the path to the configure.html file in the /src/template/ directory
+const configure = fs.readFileSync(path.join(__dirname, 'template', 'configure.html'), 'utf-8');
 
 const app = express();
 
 const respond = (res, data) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Headers', '*')
-  res.setHeader('Content-Type', 'application/json')
-  res.send(data)
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', '*');
+  res.setHeader('Content-Type', 'application/json');
+  res.send(data);
 }
 
 app.set('trust proxy', config.trustProxy);
@@ -51,7 +51,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.redirect('/configure')
+  res.redirect('/configure');
   res.end();
 });
 
@@ -84,7 +84,7 @@ app.get('/:userConfig?/configure', async (req, res) => {
       pattern: config.replacePasskeyPattern
     }
   }
-  let template = fs.readFileSync(path.join(__dirname, 'src', 'configure.html'), 'utf-8').toString()
+  let template = configure.toString()
     .replace('/** import-config */', `const config = ${JSON.stringify(templateConfig, null, 2)}`)
     .replace('<!-- welcome-message -->', welcomeMessageHtml);
   return res.send(template);
@@ -113,31 +113,22 @@ app.get("/:userConfig?/manifest.json", async (req, res) => {
 });
 
 app.get("/:userConfig/stream/:type/:id.json", async (req, res) => {
-
   try {
-
     const streams = await jackettio.getStreams(
       Object.assign(JSON.parse(atob(req.params.userConfig)), { ip: req.clientIp }),
       req.params.type,
       req.params.id,
       `${req.hostname == 'localhost' ? 'http' : 'https'}://${req.hostname}`
     );
-
     return respond(res, { streams });
-
   } catch (err) {
-
     console.log(err);
     return respond(res, { streams: [] });
-
   }
-
 });
 
 app.get('/:userConfig/download/:type/:id/:torrentId', async (req, res) => {
-
   try {
-
     const url = await jackettio.getDownload(
       Object.assign(JSON.parse(atob(req.params.userConfig)), { ip: req.clientIp }),
       req.params.type,
@@ -151,9 +142,7 @@ app.get('/:userConfig/download/:type/:id/:torrentId', async (req, res) => {
 
     res.redirect(url);
     res.end();
-
   } catch (err) {
-
     console.log(err);
 
     switch (err.message) {
@@ -173,30 +162,27 @@ app.get('/:userConfig/download/:type/:id/:torrentId', async (req, res) => {
         res.redirect(`/videos/error.mp4`);
         res.end();
     }
-
   }
-
 });
 
 app.use((req, res) => {
   if (req.xhr) {
-    res.status(404).send({ error: 'Page not found!' })
+    res.status(404).send({ error: 'Page not found!' });
   } else {
     res.status(404).send('Page not found!');
   }
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.stack)
+  console.error(err.stack);
   if (req.xhr) {
-    res.status(500).send({ error: 'Something broke!' })
+    res.status(500).send({ error: 'Something broke!' });
   } else {
     res.status(500).send('Something broke!');
   }
-})
+});
 
 const server = app.listen(config.port, async () => {
-
   console.log('───────────────────────────────────────');
   console.log(`Started addon ${addon.name} v${addon.version}`);
   console.log(`Server listen at: http://localhost:${config.port}`);
@@ -225,5 +211,4 @@ const server = app.listen(config.port, async () => {
   }
   process.once('SIGINT', closeGracefully);
   process.once('SIGTERM', closeGracefully);
-
 });
