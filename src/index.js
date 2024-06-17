@@ -212,3 +212,14 @@ const server = app.listen(config.port, async () => {
   process.once('SIGINT', closeGracefully);
   process.once('SIGTERM', closeGracefully);
 });
+
+// Ensure /tmp/torrents directory exists
+const ensureTorrentFolderExists = () => {
+  const torrentFolderPath = '/tmp/torrents';
+  if (!fs.existsSync(torrentFolderPath)) {
+    fs.mkdirSync(torrentFolderPath, { recursive: true });
+    console.log(`Created directory: ${torrentFolderPath}`);
+  }
+};
+
+ensureTorrentFolderExists();
