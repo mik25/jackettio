@@ -1,23 +1,23 @@
-import path from 'path';
-const configurePath = path.join(__dirname, 'src', 'template.configure.html');
-const configure = JSON.parse(readFileSync(configurePath));
-
-
 import fs from 'fs';
 import showdown from 'showdown';
 import express from 'express';
 import localtunnel from 'localtunnel';
-import {readFileSync} from "fs";
+import { fileURLToPath } from 'url';
+import path from 'path';
 import config from './lib/config.js';
 import cache from './lib/cache.js';
 import * as debrid from './lib/debrid.js';
-import {getIndexers} from './lib/jackett.js';
+import { getIndexers } from './lib/jackett.js';
 import * as jackettio from "./lib/jackettio.js";
-import {cleanTorrentFolder, createTorrentFolder} from './lib/torrentInfos.js';
+import { cleanTorrentFolder, createTorrentFolder } from './lib/torrentInfos.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const converter = new showdown.Converter();
 const welcomeMessageHtml = config.welcomeMessage ? `${converter.makeHtml(config.welcomeMessage)}<div class="my-4 border-top border-secondary-subtle"></div>` : '';
-const addon = JSON.parse(readFileSync(`./package.json`));
+const addon = JSON.parse(readFileSync(path.join(__dirname, 'package.json')));
+const configure = JSON.parse(readFileSync(path.join(__dirname, 'src', 'template.configure.html'))); // Adjusted path
 const app = express();
 
 const respond = (res, data) => {
