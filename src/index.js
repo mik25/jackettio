@@ -11,13 +11,19 @@ import { getIndexers } from './lib/jackett.js';
 import * as jackettio from "./lib/jackettio.js";
 import { cleanTorrentFolder, createTorrentFolder } from './lib/torrentInfos.js';
 
+// Get the current file URL and derive the directory path
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const converter = new showdown.Converter();
 const welcomeMessageHtml = config.welcomeMessage ? `${converter.makeHtml(config.welcomeMessage)}<div class="my-4 border-top border-secondary-subtle"></div>` : '';
-const addon = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf-8'));
-const configure = fs.readFileSync(path.join(__dirname, 'src', 'template.configure.html'), 'utf-8'); // Adjusted path
+
+// Corrected the path to the package.json file
+const addon = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf-8'));
+
+// Corrected the path to the template.configure.html file
+const configure = fs.readFileSync(path.join(__dirname, 'src', 'template.configure.html'), 'utf-8');
+
 const app = express();
 
 const respond = (res, data) => {
