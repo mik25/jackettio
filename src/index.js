@@ -1,7 +1,7 @@
 
 import templateFilePath from './src/template/configure.html';
 
-import fs = require("fs");
+import fs from 'fs';
 import showdown from 'showdown';
 import express from 'express';
 import localtunnel from 'localtunnel';
