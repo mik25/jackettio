@@ -16,6 +16,7 @@ import {cleanTorrentFolder, createTorrentFolder} from './lib/torrentInfos.js';
 const converter = new showdown.Converter();
 const welcomeMessageHtml = config.welcomeMessage ? `${converter.makeHtml(config.welcomeMessage)}<div class="my-4 border-top border-secondary-subtle"></div>` : '';
 const addon = JSON.parse(readFileSync(`./package.json`));
+const configure = JSON.parse(readFileSync(`./src/template.configure.html`));
 const app = express();
 
 const respond = (res, data) => {
