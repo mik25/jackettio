@@ -4,15 +4,15 @@ export default {
   // https://expressjs.com/en/guide/behind-proxies.html
   trustProxy: boolOrString(process.env.TRUST_PROXY || 'loopback, linklocal, uniquelocal'),
   // Jacket instance url
-  jackettUrl: process.env.JACKETT_URL || 'http://87.98.218.210:9117',
+  jackettUrl: process.env.JACKETT_URL || 'http://localhost:9117',
   // Jacket API key
-  jackettApiKey: process.env.JACKETT_API_KEY || '5mprcfoumvjvn1yv9o7lt89yx51jod7z',
+  jackettApiKey: process.env.JACKETT_API_KEY || '',
   // Data folder for cache database, torrent files ... Must be persistent in production
   dataFolder: process.env.DATA_FOLDER || '/tmp',
   // Enable localtunnel feature
   localtunnel: (process.env.LOCALTUNNEL || 'false') === 'true',
   // Addon ID
-  addonId: process.env.ADDON_ID || 'hy.stremio.jackeddio',
+  addonId: process.env.ADDON_ID || 'community.stremio.jackettio',
   // When hosting an instance with a private tracker, you can configure this setting to:
   // - Request the user's passkey on the /configure page.
   // - Replace your passkey with theirs when sending uncached torrents to the debrid.
@@ -24,12 +24,12 @@ export default {
   // List of config keys that user can't configure
   immulatableUserConfigKeys: commaListToArray(process.env.IMMULATABLE_USER_CONFIG_KEYS || ''),
   // Welcome message in /configure page. Markdown format
-  welcomeMessage: process.env.WELCOME_MESSAGE || 'h_y style',
+  welcomeMessage: process.env.WELCOME_MESSAGE || '',
   // Trust the cf-connecting-ip header
   trustCfIpHeader: (process.env.TRUST_CF_IP_HEADER || 'false') === 'true',
 
   defaultUserConfig: {
-    qualities: commaListToArray(process.env.DEFAULT_QUALITIES || '1080,4k').map(v => parseInt(v)),
+    qualities: commaListToArray(process.env.DEFAULT_QUALITIES || '0, 720, 1080').map(v => parseInt(v)),
     excludeKeywords: commaListToArray(process.env.DEFAULT_EXCLUDE_KEYWORDS || ''),
     maxTorrents: parseInt(process.env.DEFAULT_MAX_TORRENTS || 8),
     priotizeLanguages: commaListToArray(process.env.DEFAULT_PRIOTIZE_LANGUAGES || ''),
